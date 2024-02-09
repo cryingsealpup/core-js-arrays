@@ -442,8 +442,13 @@ function getIdentityMatrix(n) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  return numbers.reduce((acc, el, ind) => {
+    if (el % 2 !== 0) {
+      acc.push(ind);
+    }
+    return acc;
+  }, []);
 }
 
 /**
@@ -474,8 +479,11 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  if (!arr.length) {
+    return [];
+  }
+  return arr.sort((a, b) => b - a).slice(0, n);
 }
 
 /**
@@ -490,8 +498,13 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  return arr1.reduce((acc, val) => {
+    if (arr2.includes(val)) {
+      acc.push(val);
+    }
+    return acc;
+  }, []);
 }
 
 /**
@@ -505,8 +518,18 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  const result = nums
+    .reduce((acc, el, ind) => {
+      if (nums[ind - 1] <= el) {
+        acc[acc.length - 1] += 1;
+      } else {
+        acc.push(1);
+      }
+      return acc;
+    }, [])
+    .sort((a, b) => b - a);
+  return result[0];
 }
 
 /**
