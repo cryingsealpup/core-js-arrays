@@ -267,8 +267,13 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+
+function createNDimensionalArray(n, size) {
+  return n === 1
+    ? Array(size).fill(0)
+    : Array(...Array(size).fill(0)).map(
+        createNDimensionalArray.bind(null, n - 1, size)
+      );
 }
 
 /**
@@ -334,8 +339,19 @@ function calculateBalance(arr) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  return arr.reduce(
+    (acc, el) => {
+      if (acc[acc.length - 1]?.length < chunkSize) {
+        acc[acc.length - 1].push(el);
+      } else {
+        acc.push([el]);
+      }
+
+      return acc;
+    },
+    [[]]
+  );
 }
 
 /**
@@ -463,8 +479,15 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  return arr.map((el) => {
+    let string = el.toString(16).toUpperCase();
+    string =
+      string.length < 6
+        ? '#'.concat('0'.repeat(6 - string.length), string)
+        : '#'.concat(string);
+    return string;
+  });
 }
 
 /**
